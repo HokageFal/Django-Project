@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand">Меню</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href='{% url "home" %}'>Главная страница</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'add_news' %}">Добавить новость</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'event' %}">Мероприятия</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'add_venue' %}">Добавить локацию для мероприятия</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'venue' %}">Места проведения ивентов</a>
+                </li>
+            </ul>
+        </div>
+        <form class="d-flex" method=POST action="{% url 'show_search' %}">
+            {% csrf_token %}
+            <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search" name = "searched">
+            <button class="btn btn-outline-success" type="submit">Поиск</button>
+        </form>
+    </div>
+</nav>

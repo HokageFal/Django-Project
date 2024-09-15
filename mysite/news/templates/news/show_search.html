@@ -1,0 +1,39 @@
+{% extends "eventbase.html" %}
+
+
+{% include 'inc/_sidebar_event.html' %}
+
+{% block content %}
+    {% if searched %}
+        <h1>Поиск совершен. Вы искали {{ searched }}</h1>
+        {% for venue in venues %}
+<div class=" card mb-3">
+<div class="card-header">
+    <a href='{{ venue.city.get_absolute_url }}' class="list-group-item list-group-item-action active">Город:
+        {{ venue.city }}</a>
+</div>
+<div class="card-body">
+    <div class="media">
+        {% if item.photo %}
+        <img src="{{ item.photo.url }}" alt="" width="250">
+        {% endif %}
+        <div class="media-boby">
+            <h5 class="card-title">{{ venue.name }}</h5>
+            <p class="card-text">{{ venue.address }} <br> {{ venue.zip_code }}<br>{{venue.phone}} </p>
+        </div>
+    </div>
+</div>
+
+{% block footer %}
+<div class="card-footer text-body-secondary">
+    <a href="venue.web"> {{ venue.web }}</a>
+</div>
+{% endblock %}
+
+</div>
+        {% endfor %}
+    {% else %}
+        <h1>Бро ты забыл поискать</h1>
+    {% endif %}
+
+{% endblock %}

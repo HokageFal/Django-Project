@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+
+{% include 'inc/_sidebar.html' %}
+
+
+{% block content %}
+
+{% if submitted %}
+    <h1>Новость добавлена</h1>
+{% else %}
+
+<form action="" method="post">
+
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary btn-lg">Добавить новость</button>
+
+</form>
+{% endif %}
+
+{% endblock %}
+

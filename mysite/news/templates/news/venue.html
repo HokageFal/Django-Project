@@ -1,0 +1,32 @@
+{% extends "eventbase.html" %}
+
+
+{% include 'inc/_sidebar_venue.html' %}
+
+{% block content %}
+{% for venue in venue_list %}
+<div class=" card mb-3">
+    <div class="card-header">
+        <a href='{{ venue.city.get_absolute_url }}' class="list-group-item list-group-item-action active">Город
+            {{ venue.city }}</a>
+    </div>
+    <div class="card-body">
+        <div class="media">
+            <div class="media-boby">
+                <h5 class="card-title">{{ venue.name }}</h5>
+                <p class="card-text">{{ venue.description }}</p>
+                <a href='{{ venue.get_absolute_url }}' class="btn btn-primary">Узнать больше...</a>
+            </div>
+        </div>
+    </div>
+
+    {% block footer %}
+    <div class="card-footer text-body-secondary">
+        {{ event.event_date|date:"Y-m-d H:i" }}
+    </div>
+    {% endblock %}
+
+</div>
+{% endfor %}
+
+{% endblock %}
