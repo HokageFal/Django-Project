@@ -28,7 +28,7 @@ class VenueForm(ModelForm):
             'phone': '',
             'web': '',
             'email_address': '',
-            'venue_photo': '',
+            'venue_photo': 'hui',
         }
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Введи название места'}),
