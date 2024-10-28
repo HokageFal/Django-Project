@@ -5,9 +5,11 @@
 
 {% block content %}
 {% for event in event_list %}
+{% if event.approved %}
 <div class=" card mb-3">
     <div class="card-header">
-        <a href='{{ event.city.get_absolute_url }}' class="list-group-item list-group-item-action active">Мероприятие в городе
+        <a href='{{ event.city.get_absolute_url }}' class="list-group-item list-group-item-action active">Мероприятие в
+            городе
             {{ event.city }}</a>
     </div>
     <div class="card-body">
@@ -15,18 +17,41 @@
             <div class="media-boby">
                 <h5 class="card-title">{{ event.name }}</h5>
                 <p class="card-text">{{ event.description }}</p>
-                <a href='{{ item.get_absolute_url }}' class="btn btn-primary">Узнать больше...</a>
+                <a href='{% url "view_event" event.id %}' class="btn btn-primary">Узнать больше...</a>
+                {% if user.is_authenticated %}
+                    {% if user == event.manager %}
+                <a href='{% url "update_event" event.id %}' class="btn btn-primary">Изменить</a>
+                <a href='{% url "delete_event" event.id %}' class="btn btn-danger">Удалить</a>
+                    {% endif %}
+                {% endif %}
+
+
             </div>
         </div>
     </div>
 
     {% block footer %}
     <div class="card-footer text-body-secondary">
-        {{ event.event_date|date:"Y-m-d H:i" }}
+        {{ event.event_date }}
+        <br>
+        {% if event.Days_till.days >= 0 %}
+            {% if event.Days_till.days == 0 %}
+                {% if event.Days_till.seconds == 0 %}
+                    Время прошло
+                {% else %}
+                    Осталось менее дня
+                {% endif %}
+            {% else %}
+                Осталось {{ event.Days_till.days }} дней
+            {% endif %}
+        {% else %}
+            Мероприятие прошло
+        {% endif %}
     </div>
     {% endblock %}
 
 </div>
+{% endif %}
 {% endfor %}
 
 {% endblock %}

@@ -4,29 +4,70 @@
 {% include 'inc/_sidebar_venue.html' %}
 
 {% block content %}
-{% for venue in venue_list %}
-<div class=" card mb-3">
+{% for venue in venues %}
+
+<div class=" card mb-3" style="width: 50rem;">
     <div class="card-header">
-        <a href='{{ venue.city.get_absolute_url }}' class="list-group-item list-group-item-action active">Город
+        <a href='{{ event.city.get_absolute_url }}' class="list-group-item list-group-item-action active">Город
             {{ venue.city }}</a>
     </div>
+
     <div class="card-body">
         <div class="media">
             <div class="media-boby">
                 <h5 class="card-title">{{ venue.name }}</h5>
-                <p class="card-text">{{ venue.description }}</p>
-                <a href='{{ venue.get_absolute_url }}' class="btn btn-primary">Узнать больше...</a>
+                <p class="card-text">{{ venue.description }} Телефон: {{ venue.phone }}</p>
+                <p>Владелец: {{ venue.owner  }}</p>
+                 {% if venue.venue_photo %}
+                <img src="{{ venue.venue_photo.url }}" class="card-img-bottom" alt="...">
+                {% endif %}
+                <br><br>
+                <a href="{{ venue.web }}" class="btn btn-primary">Сайт места проведения</a>
+                {% if user.is_authenticated %}
+                <a href='{% url "update-venue" venue.id %}' class="btn btn-primary">Изменить</a>
+                <a href='{% url "delete_venue" venue.id %}' class="btn btn-danger">Удалить</a>
+                {% endif %}
             </div>
         </div>
     </div>
 
     {% block footer %}
     <div class="card-footer text-body-secondary">
-        {{ event.event_date|date:"Y-m-d H:i" }}
+        Адрес: {{ venue.address }}
     </div>
     {% endblock %}
 
+
 </div>
 {% endfor %}
+<br><br>
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+
+
+        {% if venues.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page=1">&laquo Первая страница</a></li>
+
+        <li class="page-item"><a class="page-link" href="?page={{ venues.previous_page_number }}">Прошлая страница</a></li>
+
+        {% endif %}
+
+        {% for i in nums %}
+        <li class="page-item"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+
+        {% endfor %}
+
+        {% if venues.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ venues.next_page_number }}">Следущая страница</a></li>
+
+        <li class="page-item"><a class="page-link" href="?page={{ venues.paginator.num_pages }}">Последння страница &raquo</a></li>
+
+        {% endif %}
+
+    </ul>
+</nav>
+<br/>
+
+
 
 {% endblock %}

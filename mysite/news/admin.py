@@ -21,8 +21,9 @@ class VenueAdmin(admin.ModelAdmin):
     search_fields = ('name', 'address')
 
 class EventAdmin(admin.ModelAdmin):
-    list_display = ('name', 'event_date', 'venue', 'manager', 'city')
+    list_display = ('id', 'name', 'event_date', 'venue', 'manager', 'city', 'approved')
     list_display_links = ('name',)
+    list_editable = ('approved',)
     search_fields = ('name',)
     list_filter = ('event_date',)
 

@@ -1,9 +1,0 @@
-{% load news_tags %}
-
-
-<div class="list-group">
-    {% get_citye as venue %}
-    {% for item in venue %}
-    <a href='{{ item.get_absolute_url }}' class="list-group-item list-group-item-action active">{{ item.title }}</a>
-    {% endfor %}
-</div>

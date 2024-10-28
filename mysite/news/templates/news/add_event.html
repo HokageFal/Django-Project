@@ -1,0 +1,25 @@
+{% extends "eventbase.html" %}
+
+
+{% include 'inc/_sidebar_event.html' %}
+{% block content %}
+
+{% if user.is_authenticated %}
+{% if submitted %}
+
+<a href="{% url 'event' %}">Мероприятие создано</a>
+
+{% else %}
+    <form action="" method="POST" enctype='multipart/form-data'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-secondary">Добавить</button>
+    </form>
+{% endif %}
+{% else %}
+Войдите в систему, чтобы создавать мероприятия
+<br><br>
+<a class="btn btn-primary" href="{% url 'login' %}" role="button">Вход</a>
+<a class="btn btn-primary" href="{% url 'register_user' %}" role="button">Регистрация</a>
+{% endif %}
+{% endblock %}

@@ -8,27 +8,30 @@
         <h1>Поиск совершен. Вы искали {{ searched }}</h1>
         {% for venue in venues %}
 <div class=" card mb-3">
-<div class="card-header">
-    <a href='{{ venue.city.get_absolute_url }}' class="list-group-item list-group-item-action active">Город:
-        {{ venue.city }}</a>
-</div>
-<div class="card-body">
-    <div class="media">
-        {% if item.photo %}
-        <img src="{{ item.photo.url }}" alt="" width="250">
-        {% endif %}
-        <div class="media-boby">
-            <h5 class="card-title">{{ venue.name }}</h5>
-            <p class="card-text">{{ venue.address }} <br> {{ venue.zip_code }}<br>{{venue.phone}} </p>
+    <div class="card-header">
+        <a href='{{ event.city.get_absolute_url }}' class="list-group-item list-group-item-action active">Город
+            {{ venue.city }}</a>
+    </div>
+    <div class="card-body">
+        <div class="media">
+            <div class="media-boby">
+                <h5 class="card-title">{{ venue.name }}</h5>
+                <p class="card-text">{{ venue.description }} Телефон: {{ venue.phone }}</p>
+                <a href="{{ venue.web }}" class="btn btn-primary">Сайт места проведения</a>
+                <a href='{% url "update-venue" venue.id %}' class="btn btn-primary">Изменить</a>
+                <a href='{% url "delete_venue" venue.id %}' class="btn btn-danger">Удалить</a>
+            </div>
         </div>
     </div>
-</div>
 
-{% block footer %}
-<div class="card-footer text-body-secondary">
-    <a href="venue.web"> {{ venue.web }}</a>
+    {% block footer %}
+    <div class="card-footer text-body-secondary">
+        Адрес: {{ venue.address }}
+    </div>
+
+
 </div>
-{% endblock %}
+    {% endblock %}
 
 </div>
         {% endfor %}

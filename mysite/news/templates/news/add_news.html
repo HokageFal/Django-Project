@@ -6,17 +6,25 @@
 
 {% block content %}
 
+{% if user.is_authenticated %}
 {% if submitted %}
     <h1>Новость добавлена</h1>
 {% else %}
 
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
 
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit" class="btn btn-primary btn-lg">Добавить новость</button>
 
 </form>
+{% endif %}
+
+{% else %}
+Войдите в систему, чтобы добавить новость
+<br><br>
+<a class="btn btn-primary" href="{% url 'login' %}" role="button">Вход</a>
+<a class="btn btn-primary" href="{% url 'register_user' %}" role="button">Регистрация</a>
 {% endif %}
 
 {% endblock %}
