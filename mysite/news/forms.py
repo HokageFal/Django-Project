@@ -12,7 +12,7 @@ class NewsForm(ModelForm):
 
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Введи заголовок'}),
-            'content': forms.Textarea()
+            
         }
 
 
